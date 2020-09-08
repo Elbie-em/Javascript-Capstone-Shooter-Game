@@ -4,8 +4,8 @@ class GameScene extends Phaser.Scene {
 	}
 
 	preload() {
-		this.load.image("asteroid", "../assets/asteriod.png");
 		this.load.image("babyShip", "../assets/babyShip.png");
+		this.load.image("asteriod", "../assets/asteriod.png");
 		this.load.spritesheet("spaceShipPlayer", "../assets/playerSprite.png", {
 			frameWidth: 132,
 			frameHeight: 22
@@ -46,12 +46,37 @@ class GameScene extends Phaser.Scene {
 		this.time.addEvent({
 			delay: 5000,
 			callback: () => {
-				var enemy = new MotherShip(
-					this,
-					this.game.config.width + 100,
-					Phaser.Math.Between(50, 200)
-				);
-				this.enemies.add(enemy);
+				let enemy = null;
+
+				if (Phaser.Math.Between(0, 10) >= 3) {
+					enemy = new MotherShip(
+						this,
+						this.game.config.width + 100,
+						Phaser.Math.Between(50, 200)
+					);
+				}
+				else if (Phaser.Math.Between(0, 10) >= 5) {
+					if (this.getEnemiesByType("Asteriod").length < 5) {
+
+						enemy = new Asteroid(
+							this,
+							this.game.config.width + 100,
+							Phaser.Math.Between(50, 250)
+						);
+					}
+				}
+				else {
+					enemy = new UFO(
+						this,
+						this.game.config.width + 100,
+						Phaser.Math.Between(50, 500)
+					);
+				}
+
+				if (enemy !== null) {
+
+					this.enemies.add(enemy);
+				}
 			},
 			callbackScope: this,
 			loop: true
@@ -76,5 +101,22 @@ class GameScene extends Phaser.Scene {
 		else if (cursors.right.isDown) {
 			this.player.moveFront();
 		}
+
+		for (let i = 0; i < this.enemies.getChildren().length; i++) {
+      let enemy = this.enemies.getChildren()[i];
+
+      enemy.update();
+    }
+	}
+
+	getEnemiesByType(type) {
+		let arr = [];
+		for (let i = 0; i < this.enemies.getChildren().length; i++) {
+			let enemy = this.enemies.getChildren()[i];
+			if (enemy.getData("type") === type) {
+				arr.push(enemy);
+			}
+		}
+		return arr;
 	}
 }
