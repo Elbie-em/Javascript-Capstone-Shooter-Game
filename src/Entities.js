@@ -42,13 +42,47 @@ class Player extends Entity {
 
 class Asteroid extends Entity {
 	constructor(scene, x, y) {
-		super(scene, x, y, "asteriod", "Asteroid");
+		super(scene, x, y, "asteriod", "Asteriod");
 		this.body.velocity.x = Phaser.Math.Between(50, 100);
 		this.states = {
 			MOVE_FORWARD: "MOVE_FORWARD",
 			ATTACK: "ATTACK"
 		};
 		this.state = this.states.MOVE_FORWARD;
+	}
+
+	update() {
+		if (!this.getData("isDead") && this.scene.player) {
+      if (Phaser.Math.Distance.Between(
+        this.x,
+        this.y,
+        this.scene.player.x,
+        this.scene.player.y
+      ) < 320) {
+
+        this.state = this.states.ATTACK;
+      }
+
+      if (this.state == this.states.ATTACK) {
+        var dx = this.scene.player.x - this.x;
+        var dy = this.scene.player.y - this.y;
+
+        var angle = Math.atan2(dy, dx);
+
+        var speed = 100;
+        this.body.setVelocity(
+          Math.cos(angle) * speed,
+          Math.sin(angle) * speed
+        );
+			}
+			
+			if (this.x < this.scene.player.x) {
+				this.angle -= 5;
+			}
+			else {
+				this.angle += 5;
+			} 
+    }
 	}
 }
 
@@ -87,4 +121,11 @@ class BabyShip extends Entity {
 		super(scene, x, y, "babyShip");
 		this.body.setVelocity(-200, 20)
 	}
+}
+
+class UFO extends Entity {
+	constructor(scene, x, y) {
+    super(scene, x, y, "ufo", "UFO");
+    this.play("ufo");
+  }
 }
