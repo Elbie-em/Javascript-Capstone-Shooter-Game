@@ -6,6 +6,7 @@ class GameScene extends Phaser.Scene {
 	preload() {
 		this.load.image("babyShip", "../assets/babyShip.png");
 		this.load.image("asteriod", "../assets/asteriod.png");
+		this.load.image("playerAmunition", "../assets/playerAmunition.png");
 		this.load.spritesheet("spaceShipPlayer", "../assets/playerSprite.png", {
 			frameWidth: 132,
 			frameHeight: 22
@@ -101,6 +102,14 @@ class GameScene extends Phaser.Scene {
 		else if (cursors.right.isDown) {
 			this.player.moveFront();
 		}
+
+		if (cursors.space.isDown) {
+			this.player.setData("isFiring", true);
+		  }
+		  else {
+			this.player.setData("fireTick", this.player.getData("fireDelay") - 1);
+			this.player.setData("isFiring", false);
+		  }
 
 		for (let i = 0; i < this.enemies.getChildren().length; i++) {
       let enemy = this.enemies.getChildren()[i];
