@@ -44,5 +44,13 @@ class Asteroid extends Entity {
 	constructor(scene, x, y) {
 		super(scene, x, y, "asteriod", "Asteroid");
 		this.body.velocity.x = Phaser.Math.Between(50, 100);
-  }
+	}
+}
+
+class MotherShip extends Entity {
+	constructor(scene, x, y) {
+		super(scene, x, y, "motherShip", "MotherShip");
+		this.play("motherShip");
+		this.body.setVelocity(-20,0)
+	}
 }
