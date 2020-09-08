@@ -5,6 +5,7 @@ class GameScene extends Phaser.Scene {
 
 	preload() {
 		this.load.image("asteroid", "../assets/asteriod.png");
+		this.load.image("babyShip", "../assets/babyShip.png");
 		this.load.spritesheet("spaceShipPlayer", "../assets/playerSprite.png", {
 			frameWidth: 132,
 			frameHeight: 22
@@ -44,11 +45,11 @@ class GameScene extends Phaser.Scene {
 
 		this.time.addEvent({
 			delay: 5000,
-			callback: function() {
+			callback: () => {
 				var enemy = new MotherShip(
 					this,
 					this.game.config.width + 100,
-					Phaser.Math.Between(50, this.game.config.height)
+					Phaser.Math.Between(50, 200)
 				);
 				this.enemies.add(enemy);
 			},
