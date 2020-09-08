@@ -39,3 +39,10 @@ class Player extends Entity {
 		this.y = Phaser.Math.Clamp(this.y, 0, this.scene.game.config.height)
 	}
 }
+
+class Asteroid extends Entity {
+	constructor(scene, x, y) {
+		super(scene, x, y, "asteriod", "Asteroid");
+		this.body.velocity.x = Phaser.Math.Between(50, 100);
+  }
+}
