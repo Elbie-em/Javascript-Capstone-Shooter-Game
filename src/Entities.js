@@ -44,6 +44,11 @@ class Asteroid extends Entity {
 	constructor(scene, x, y) {
 		super(scene, x, y, "asteriod", "Asteroid");
 		this.body.velocity.x = Phaser.Math.Between(50, 100);
+		this.states = {
+			MOVE_FORWARD: "MOVE_FORWARD",
+			ATTACK: "ATTACK"
+		};
+		this.state = this.states.MOVE_FORWARD;
 	}
 }
 
@@ -51,7 +56,7 @@ class MotherShip extends Entity {
 	constructor(scene, x, y) {
 		super(scene, x, y, "motherShip", "MotherShip");
 		this.play("motherShip");
-		this.body.setVelocity(-20,0)
+		this.body.setVelocity(-20, 0)
 		this.shootTimer = this.scene.time.addEvent({
 			delay: 1000,
 			callback: () => {
@@ -78,8 +83,8 @@ class MotherShip extends Entity {
 }
 
 class BabyShip extends Entity {
-  constructor(scene, x, y) {
-    super(scene, x, y, "babyShip");
-    this.body.setVelocity(-200,20)
-  }
+	constructor(scene, x, y) {
+		super(scene, x, y, "babyShip");
+		this.body.setVelocity(-200, 20)
+	}
 }
