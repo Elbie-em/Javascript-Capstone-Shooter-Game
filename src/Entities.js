@@ -15,6 +15,9 @@ class Player extends Entity {
 		super(scene, x, y, key, "Player");
 		this.setData("speed", 200);
 		this.play("spaceShipPlayer");
+		this.setData("isFiring", false);
+		this.setData("fireDelay", 10);
+		this.setData("fireTick", this.getData("fireDelay") - 1);
 	}
 
 	moveUp() {
@@ -37,8 +40,29 @@ class Player extends Entity {
 		this.body.setVelocity(0, 0);
 		this.x = Phaser.Math.Clamp(this.x, 0, this.scene.game.config.width);
 		this.y = Phaser.Math.Clamp(this.y, 0, this.scene.game.config.height)
+
+		if (this.getData("isFiring")) {
+			if (this.getData("fireTick") < this.getData("fireDelay")) {
+				this.setData("fireTick", this.getData("fireTick") + 1);
+			}
+			else { // when the "manual timer" is triggered:
+				let surge = new PlayerAmunition(this.scene, this.x + 50, this.y);
+				this.scene.playerAmunition.add(surge);
+			
+				//this.scene.sfx.laser.play();
+				this.setData("fireTick", 0);
+			}
+		}
 	}
 }
+
+class PlayerAmunition extends Entity {
+  constructor(scene, x, y) {
+    super(scene, x, y, "playerAmunition");
+		this.body.velocity.x = 200;
+  }
+}
+
 
 class Asteroid extends Entity {
 	constructor(scene, x, y) {
@@ -53,36 +77,36 @@ class Asteroid extends Entity {
 
 	update() {
 		if (!this.getData("isDead") && this.scene.player) {
-      if (Phaser.Math.Distance.Between(
-        this.x,
-        this.y,
-        this.scene.player.x,
-        this.scene.player.y
-      ) < 320) {
+			if (Phaser.Math.Distance.Between(
+				this.x,
+				this.y,
+				this.scene.player.x,
+				this.scene.player.y
+			) < 320) {
 
-        this.state = this.states.ATTACK;
-      }
-
-      if (this.state == this.states.ATTACK) {
-        var dx = this.scene.player.x - this.x;
-        var dy = this.scene.player.y - this.y;
-
-        var angle = Math.atan2(dy, dx);
-
-        var speed = 100;
-        this.body.setVelocity(
-          Math.cos(angle) * speed,
-          Math.sin(angle) * speed
-        );
+				this.state = this.states.ATTACK;
 			}
-			
+
+			if (this.state == this.states.ATTACK) {
+				var dx = this.scene.player.x - this.x;
+				var dy = this.scene.player.y - this.y;
+
+				var angle = Math.atan2(dy, dx);
+
+				var speed = 100;
+				this.body.setVelocity(
+					Math.cos(angle) * speed,
+					Math.sin(angle) * speed
+				);
+			}
+
 			if (this.x < this.scene.player.x) {
 				this.angle -= 5;
 			}
 			else {
 				this.angle += 5;
-			} 
-    }
+			}
+		}
 	}
 }
 
@@ -125,7 +149,7 @@ class BabyShip extends Entity {
 
 class UFO extends Entity {
 	constructor(scene, x, y) {
-    super(scene, x, y, "ufo", "UFO");
-    this.play("ufo");
-  }
+		super(scene, x, y, "ufo", "UFO");
+		this.play("ufo");
+	}
 }
