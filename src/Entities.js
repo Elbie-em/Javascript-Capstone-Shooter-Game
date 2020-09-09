@@ -59,7 +59,7 @@ class Player extends Entity {
 class PlayerAmunition extends Entity {
   constructor(scene, x, y) {
     super(scene, x, y, "playerAmunition");
-		this.body.velocity.x = 200;
+		this.body.velocity.x = 300;
   }
 }
 
@@ -67,7 +67,7 @@ class PlayerAmunition extends Entity {
 class Asteroid extends Entity {
 	constructor(scene, x, y) {
 		super(scene, x, y, "asteriod", "Asteriod");
-		this.body.velocity.x = Phaser.Math.Between(50, 100);
+		this.body.setVelocity(50, 30)
 		this.states = {
 			MOVE_FORWARD: "MOVE_FORWARD",
 			ATTACK: "ATTACK"
@@ -150,6 +150,7 @@ class BabyShip extends Entity {
 class UFO extends Entity {
 	constructor(scene, x, y) {
 		super(scene, x, y, "ufo", "UFO");
+		this.body.setVelocity(-50, -5)
 		this.play("ufo");
 	}
 }
