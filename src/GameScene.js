@@ -15,6 +15,10 @@ class GameScene extends Phaser.Scene {
 			frameWidth: 234,
 			frameHeight: 77
 		});
+		this.load.spritesheet("ufo", "../assets/ufo.png", {
+			frameWidth: 135,
+			frameHeight: 85
+		});
 	}
 
 	create() {
@@ -33,9 +37,16 @@ class GameScene extends Phaser.Scene {
 			repeat: -1
 		});
 
+		this.anims.create({
+			key: "ufo",
+			frames: this.anims.generateFrameNumbers("ufo"),
+			frameRate: 5,
+			repeat: -1
+		});
+
 		this.player = new Player(
 			this,
-			this.game.config.width * 0.5,
+			Phaser.Math.Between(50, 200),
 			this.game.config.height * 0.5,
 			"spaceShipPlayer"
 		);
@@ -61,8 +72,8 @@ class GameScene extends Phaser.Scene {
 
 						enemy = new Asteroid(
 							this,
-							this.game.config.width + 100,
-							Phaser.Math.Between(50, 250)
+							Phaser.Math.Between(200, 800),
+							Phaser.Math.Between(-10, 5)
 						);
 					}
 				}
@@ -105,17 +116,61 @@ class GameScene extends Phaser.Scene {
 
 		if (cursors.space.isDown) {
 			this.player.setData("isFiring", true);
-		  }
-		  else {
+		}
+		else {
 			this.player.setData("fireTick", this.player.getData("fireDelay") - 1);
 			this.player.setData("isFiring", false);
-		  }
+		}
 
 		for (let i = 0; i < this.enemies.getChildren().length; i++) {
-      let enemy = this.enemies.getChildren()[i];
+			let enemy = this.enemies.getChildren()[i];
 
-      enemy.update();
+			enemy.update();
+			if (enemy.x < -enemy.displayWidth ||
+				enemy.x > this.game.config.width + enemy.displayWidth ||
+				enemy.y < -enemy.displayHeight * 4 ||
+				enemy.y > this.game.config.height + enemy.displayHeight) {
+
+				if (enemy) {
+					if (enemy.onDestroy !== undefined) {
+						enemy.onDestroy();
+					}
+
+					enemy.destroy();
+				}
+
+			}
+		}
+
+		for (let i = 0; i < this.enemyAmunition.getChildren().length; i++) {
+      let babyShip = this.enemyAmunition.getChildren()[i];
+      babyShip.update();
+
+      if (babyShip.x < -babyShip.displayWidth ||
+        babyShip.x > this.game.config.width + babyShip.displayWidth ||
+        babyShip.y < -babyShip.displayHeight * 4 ||
+        babyShip.y > this.game.config.height + babyShip.displayHeight) {
+        if (babyShip) {
+          babyShip.destroy();
+        }
+      }
+		}
+
+		for (let i = 0; i < this.playerAmunition.getChildren().length; i++) {
+      let surge = this.playerAmunition.getChildren()[i];
+      surge.update();
+
+      if (surge.x < -surge.displayWidth ||
+        surge.x > this.game.config.width + surge.displayWidth ||
+        surge.y < -surge.displayHeight * 4 ||
+        surge.y > this.game.config.height + surge.displayHeight) {
+        if (surge) {
+          surge.destroy();
+        }
+      }
     }
+		
+
 	}
 
 	getEnemiesByType(type) {
