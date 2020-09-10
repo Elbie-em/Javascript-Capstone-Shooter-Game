@@ -19,6 +19,10 @@ class GameScene extends Phaser.Scene {
 			frameWidth: 135,
 			frameHeight: 85
 		});
+		this.load.spritesheet("explosion", "../assets/explosion.png", {
+			frameWidth: 210,
+			frameHeight: 200
+		});
 	}
 
 	create() {
@@ -42,6 +46,13 @@ class GameScene extends Phaser.Scene {
 			frames: this.anims.generateFrameNumbers("ufo"),
 			frameRate: 5,
 			repeat: -1
+		});
+
+		this.anims.create({
+			key: "explosion",
+			frames: this.anims.generateFrameNumbers("explosion"),
+			frameRate: 5,
+			repeat: 0
 		});
 
 		this.player = new Player(
@@ -94,32 +105,62 @@ class GameScene extends Phaser.Scene {
 			loop: true
 		});
 
+		this.physics.add.collider(this.playerAmunition, this.enemies, (playerAmunition, enemy) => {
+			if (enemy) {
+				if (enemy.onDestroy !== undefined) {
+					enemy.onDestroy();
+				}
+
+				enemy.explode(true);
+				playerAmunition.destroy();
+			}
+		});
+
+		this.physics.add.overlap(this.player, this.enemies, (player, enemy) => {
+			if (!player.getData("isDead") &&
+				!enemy.getData("isDead")) {
+				player.explode(false);
+				enemy.explode(true);
+			}
+		});
+
+		this.physics.add.overlap(this.player, this.enemyAmunition, (player, babyShip) => {
+			if (!player.getData("isDead") &&
+				!babyShip.getData("isDead")) {
+				player.explode(false);
+				babyShip.destroy();
+			}
+		});
+
 	}
 
 	update() {
-		this.player.update();
-		const cursors = this.input.keyboard.createCursorKeys();
 
-		if (cursors.up.isDown) {
-			this.player.moveUp();
-		}
-		else if (cursors.down.isDown) {
-			this.player.moveDown();
-		}
+		if (!this.player.getData("isDead")) {
+			this.player.update();
+			const cursors = this.input.keyboard.createCursorKeys();
 
-		if (cursors.left.isDown) {
-			this.player.moveBack();
-		}
-		else if (cursors.right.isDown) {
-			this.player.moveFront();
-		}
+			if (cursors.up.isDown) {
+				this.player.moveUp();
+			}
+			else if (cursors.down.isDown) {
+				this.player.moveDown();
+			}
 
-		if (cursors.space.isDown) {
-			this.player.setData("isFiring", true);
-		}
-		else {
-			this.player.setData("fireTick", this.player.getData("fireDelay") - 1);
-			this.player.setData("isFiring", false);
+			if (cursors.left.isDown) {
+				this.player.moveBack();
+			}
+			else if (cursors.right.isDown) {
+				this.player.moveFront();
+			}
+
+			if (cursors.space.isDown) {
+				this.player.setData("isFiring", true);
+			}
+			else {
+				this.player.setData("fireTick", this.player.getData("fireDelay") - 1);
+				this.player.setData("isFiring", false);
+			}
 		}
 
 		for (let i = 0; i < this.enemies.getChildren().length; i++) {
@@ -143,33 +184,34 @@ class GameScene extends Phaser.Scene {
 		}
 
 		for (let i = 0; i < this.enemyAmunition.getChildren().length; i++) {
-      let babyShip = this.enemyAmunition.getChildren()[i];
-      babyShip.update();
+			let babyShip = this.enemyAmunition.getChildren()[i];
+			babyShip.update();
 
-      if (babyShip.x < -babyShip.displayWidth ||
-        babyShip.x > this.game.config.width + babyShip.displayWidth ||
-        babyShip.y < -babyShip.displayHeight * 4 ||
-        babyShip.y > this.game.config.height + babyShip.displayHeight) {
-        if (babyShip) {
-          babyShip.destroy();
-        }
-      }
+			if (babyShip.x < -babyShip.displayWidth ||
+				babyShip.x > this.game.config.width + babyShip.displayWidth ||
+				babyShip.y < -babyShip.displayHeight * 4 ||
+				babyShip.y > this.game.config.height + babyShip.displayHeight) {
+				if (babyShip) {
+					babyShip.destroy();
+				}
+			}
 		}
 
 		for (let i = 0; i < this.playerAmunition.getChildren().length; i++) {
-      let surge = this.playerAmunition.getChildren()[i];
-      surge.update();
+			let surge = this.playerAmunition.getChildren()[i];
+			surge.update();
 
-      if (surge.x < -surge.displayWidth ||
-        surge.x > this.game.config.width + surge.displayWidth ||
-        surge.y < -surge.displayHeight * 4 ||
-        surge.y > this.game.config.height + surge.displayHeight) {
-        if (surge) {
-          surge.destroy();
-        }
-      }
-    }
-		
+			if (surge.x < -surge.displayWidth ||
+				surge.x > this.game.config.width + surge.displayWidth ||
+				surge.y < -surge.displayHeight * 4 ||
+				surge.y > this.game.config.height + surge.displayHeight) {
+				if (surge) {
+					surge.destroy();
+				}
+			}
+		}
+
+
 
 	}
 
