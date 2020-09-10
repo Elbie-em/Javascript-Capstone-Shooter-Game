@@ -8,6 +8,38 @@ class Entity extends Phaser.GameObjects.Sprite {
 		this.setData("type", type);
 		this.setData("isDead", false);
 	}
+
+	explode(canDestroy) {
+		if (!this.getData("isDead")) {
+			this.setTexture("explosion");  // this refers to the same animation key we used when we added this.anims.create previously
+			this.play("explosion"); // play the animation
+
+			// pick a random explosion sound within the array we defined in this.sfx in SceneMain
+			//this.scene.sfx.explosions[Phaser.Math.Between(0, this.scene.sfx.explosions.length - 1)].play();
+
+			if (this.shootTimer !== undefined) {
+				if (this.shootTimer) {
+					this.shootTimer.remove(false);
+				}
+			}
+
+			this.setAngle(0);
+			this.body.setVelocity(0, 0);
+
+			this.on('animationcomplete',  () => {
+
+				if (canDestroy) {
+					this.destroy();
+				}
+				else {
+					this.setVisible(false);
+				}
+
+			}, this);
+
+			this.setData("isDead", true);
+		}
+	}
 }
 
 class Player extends Entity {
@@ -88,15 +120,15 @@ class Asteroid extends Entity {
 			}
 
 			if (this.state == this.states.ATTACK) {
-				var dx = this.scene.player.x - this.x;
-				var dy = this.scene.player.y - this.y;
+			  let dx = this.scene.player.x - this.x;
+				let dy = this.scene.player.y - this.y;
 
-				var angle = Math.atan2(dy, dx);
+				let angle = Math.atan2(dy, dx);
 
-				var speed = 100;
+				const SPEED = 100;
 				this.body.setVelocity(
-					Math.cos(angle) * speed,
-					Math.sin(angle) * speed
+					Math.cos(angle) * SPEED,
+					Math.sin(angle) * SPEED
 				);
 			}
 
