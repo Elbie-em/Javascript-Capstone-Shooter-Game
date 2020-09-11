@@ -7,6 +7,7 @@ class GameScene extends Phaser.Scene {
 		this.load.image("babyShip", "../assets/babyShip.png");
 		this.load.image("asteriod", "../assets/asteriod.png");
 		this.load.image("playerAmunition", "../assets/playerAmunition.png");
+		this.load.image("background3", "../assets/bg.png");
 		this.load.spritesheet("spaceShipPlayer", "../assets/playerSprite.png", {
 			frameWidth: 132,
 			frameHeight: 22
@@ -25,11 +26,14 @@ class GameScene extends Phaser.Scene {
 		});
 		this.load.audio("spaceShipCannon", "../assets/spaceShipCannon.mp3");
 		this.load.audio("enemyExplosion", "../assets/enemyExplosion.mp3");
+		this.load.audio("alert", "../assets/enemyAlert.mp3");
 		this.load.audio("playerExplosion", "../assets/playerExplosion.mp3");
 		this.load.audio("gameMusic", "../assets/gameMusic.mp3");
 	}
 
 	create() {
+
+		this.add.image(540, 300, 'background3');
 
 		this.anims.create({
 			key: "motherShip",
@@ -65,6 +69,7 @@ class GameScene extends Phaser.Scene {
 				this.sound.add("playerExplosion")
 			],
 			cannon: this.sound.add("spaceShipCannon"),
+			enemyAlert: this.sound.add("alert"),
 			gamePlayMusic: this.sound.add('gameMusic')
 		};
 
@@ -85,7 +90,7 @@ class GameScene extends Phaser.Scene {
 			delay: 2000,
 			callback: () => {
 				let enemy = null;
-
+				this.sfx.enemyAlert.play();
 				if (Phaser.Math.Between(0, 10) >= 3) {
 					enemy = new MotherShip(
 						this,
@@ -147,7 +152,7 @@ class GameScene extends Phaser.Scene {
 			}
 		});
 	}
- 
+
 	update() {
 		if (!this.player.getData("isDead")) {
 			this.player.update();
@@ -223,8 +228,6 @@ class GameScene extends Phaser.Scene {
 				}
 			}
 		}
-
-
 
 	}
 
