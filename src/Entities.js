@@ -26,7 +26,7 @@ class Entity extends Phaser.GameObjects.Sprite {
 			this.setAngle(0);
 			this.body.setVelocity(0, 0);
 
-			this.on('animationcomplete',  () => {
+			this.on('animationcomplete', () => {
 
 				if (canDestroy) {
 					this.destroy();
@@ -80,7 +80,7 @@ class Player extends Entity {
 			else { // when the "manual timer" is triggered:
 				let surge = new PlayerAmunition(this.scene, this.x + 50, this.y);
 				this.scene.playerAmunition.add(surge);
-			
+
 				this.scene.sfx.cannon.play();
 				this.setData("fireTick", 0);
 			}
@@ -89,10 +89,10 @@ class Player extends Entity {
 }
 
 class PlayerAmunition extends Entity {
-  constructor(scene, x, y) {
-    super(scene, x, y, "playerAmunition");
+	constructor(scene, x, y) {
+		super(scene, x, y, "playerAmunition");
 		this.body.velocity.x = 300;
-  }
+	}
 }
 
 
@@ -120,7 +120,7 @@ class Asteroid extends Entity {
 			}
 
 			if (this.state == this.states.ATTACK) {
-			  let dx = this.scene.player.x - this.x;
+				let dx = this.scene.player.x - this.x;
 				let dy = this.scene.player.y - this.y;
 
 				let angle = Math.atan2(dy, dx);
@@ -186,3 +186,4 @@ class UFO extends Entity {
 		this.play("ufo");
 	}
 }
+
