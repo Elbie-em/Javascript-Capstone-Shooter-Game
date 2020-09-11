@@ -23,6 +23,10 @@ class GameScene extends Phaser.Scene {
 			frameWidth: 210,
 			frameHeight: 200
 		});
+		this.load.audio("spaceShipCannon", "../assets/spaceShipCannon.mp3");
+		this.load.audio("enemyExplosion", "../assets/enemyExplosion.mp3");
+		this.load.audio("playerExplosion", "../assets/playerExplosion.mp3");
+		this.load.audio("gameMusic", "../assets/gameMusic.mp3");
 	}
 
 	create() {
@@ -55,6 +59,17 @@ class GameScene extends Phaser.Scene {
 			repeat: 0
 		});
 
+		this.sfx = {
+			explosions: [
+				this.sound.add("enemyExplosion"),
+				this.sound.add("playerExplosion")
+			],
+			cannon: this.sound.add("spaceShipCannon"),
+			gamePlayMusic: this.sound.add('gameMusic')
+		};
+
+		this.sfx.gamePlayMusic.play();
+
 		this.player = new Player(
 			this,
 			Phaser.Math.Between(50, 200),
@@ -67,7 +82,7 @@ class GameScene extends Phaser.Scene {
 		this.playerAmunition = this.add.group();
 
 		this.time.addEvent({
-			delay: 5000,
+			delay: 2000,
 			callback: () => {
 				let enemy = null;
 
@@ -131,11 +146,9 @@ class GameScene extends Phaser.Scene {
 				babyShip.destroy();
 			}
 		});
-
 	}
-
+ 
 	update() {
-
 		if (!this.player.getData("isDead")) {
 			this.player.update();
 			const cursors = this.input.keyboard.createCursorKeys();
