@@ -15,7 +15,7 @@ class Entity extends Phaser.GameObjects.Sprite {
 			this.play("explosion"); // play the animation
 
 			// pick a random explosion sound within the array we defined in this.sfx in SceneMain
-			//this.scene.sfx.explosions[Phaser.Math.Between(0, this.scene.sfx.explosions.length - 1)].play();
+			this.scene.sfx.explosions[Phaser.Math.Between(0, this.scene.sfx.explosions.length - 1)].play();
 
 			if (this.shootTimer !== undefined) {
 				if (this.shootTimer) {
@@ -81,7 +81,7 @@ class Player extends Entity {
 				let surge = new PlayerAmunition(this.scene, this.x + 50, this.y);
 				this.scene.playerAmunition.add(surge);
 			
-				//this.scene.sfx.laser.play();
+				this.scene.sfx.cannon.play();
 				this.setData("fireTick", 0);
 			}
 		}
