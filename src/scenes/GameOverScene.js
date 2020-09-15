@@ -1,3 +1,5 @@
+import Phaser from '../phaser';
+
 class GameOverScene extends Phaser.Scene {
 	constructor() {
 		super({ key: "GameOverScene" });
@@ -72,3 +74,5 @@ class GameOverScene extends Phaser.Scene {
 
 	}
 }
+
+export default GameOverScene;

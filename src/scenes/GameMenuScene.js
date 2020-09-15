@@ -1,3 +1,4 @@
+import Phaser from '../phaser';
 class GameMenuScene extends Phaser.Scene {
 	constructor() {
 		super({ key: "GameMenuScene" });
@@ -116,3 +117,5 @@ class GameMenuScene extends Phaser.Scene {
 		});
 	}
 }
+
+export default GameMenuScene;

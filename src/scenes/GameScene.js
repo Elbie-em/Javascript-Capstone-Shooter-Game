@@ -1,3 +1,10 @@
+import Phaser from '../phaser';
+import Player from '../entitites/player';
+import MotherShip from '../entitites/motherShip';
+import Asteroid from '../entitites/asteroid';
+import Galaxy from '../entitites/galaxy';
+import UFO from '../entitites/ufo';
+
 class GameScene extends Phaser.Scene {
 	constructor() {
 		super({ key: "GameScene" });
@@ -304,3 +311,5 @@ class GameScene extends Phaser.Scene {
 		return arr;
 	}
 }
+
+export default GameScene;
