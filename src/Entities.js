@@ -86,6 +86,17 @@ class Player extends Entity {
 			}
 		}
 	}
+
+	onDestroy() {
+		this.scene.time.addEvent({
+			delay: 1000,
+			callback: () => {
+				this.scene.scene.start("GameOverScene");
+			},
+			callbackScope: this,
+			loop: false
+		});
+	}
 }
 
 class PlayerAmunition extends Entity {
