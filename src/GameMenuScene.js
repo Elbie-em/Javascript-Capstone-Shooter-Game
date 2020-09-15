@@ -13,12 +13,20 @@ class GameMenuScene extends Phaser.Scene {
 		this.load.image("btnHelpHover", "../assets/btnHelpHover.png");
 		this.load.image("btnLeaderBoard", "../assets/btnLeaderBoard.png");
 		this.load.image("btnLeaderBoardHover", "../assets/btnLeaderBoardHover.png");
+		this.load.audio("menuMusic", "../assets/menuMusic.mp3");
 	}
 
 	create() {
 		this.add.image(540, 300, 'background3');
 		this.add.image(150, 300, 'astronaut');
 		this.add.image(900, 300, 'alien');
+
+		this.sfx = {
+			menuMusic: this.sound.add('menuMusic')
+		};
+
+		this.sfx.menuMusic.play();
+		this.sfx.menuMusic.loop = true;
 		this.btnStart = this.add.sprite(
 			this.game.config.width * 0.5,
 			this.game.config.height * 0.4,
@@ -54,6 +62,7 @@ class GameMenuScene extends Phaser.Scene {
 
 		this.btnStart.on("pointerup", () => {
 			this.btnStart.setTexture("btnStart");
+			this.sfx.menuMusic.stop();
 			this.scene.start("GameScene");
 		}, this);
 
