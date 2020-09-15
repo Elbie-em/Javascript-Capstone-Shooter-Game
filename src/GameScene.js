@@ -34,6 +34,7 @@ class GameScene extends Phaser.Scene {
 	create() {
 
 		this.add.image(540, 300, 'background3');
+	
 
 		this.anims.create({
 			key: "motherShip",
@@ -63,6 +64,7 @@ class GameScene extends Phaser.Scene {
 			repeat: 0
 		});
 
+
 		this.sfx = {
 			explosions: [
 				this.sound.add("enemyExplosion"),
@@ -74,6 +76,7 @@ class GameScene extends Phaser.Scene {
 		};
 
 		this.sfx.gamePlayMusic.play();
+		this.sfx.enemyAlert.play();
 
 		this.player = new Player(
 			this,
@@ -90,7 +93,6 @@ class GameScene extends Phaser.Scene {
 			delay: 2000,
 			callback: () => {
 				let enemy = null;
-				this.sfx.enemyAlert.play();
 				if (Phaser.Math.Between(0, 10) >= 3) {
 					enemy = new MotherShip(
 						this,
@@ -140,7 +142,10 @@ class GameScene extends Phaser.Scene {
 			if (!player.getData("isDead") &&
 				!enemy.getData("isDead")) {
 				player.explode(false);
+				player.onDestroy();
 				enemy.explode(true);
+				this.sfx.gamePlayMusic.stop();
+				this.sfx.enemyAlert.stop();
 			}
 		});
 
@@ -148,9 +153,24 @@ class GameScene extends Phaser.Scene {
 			if (!player.getData("isDead") &&
 				!babyShip.getData("isDead")) {
 				player.explode(false);
+				player.onDestroy();
 				babyShip.destroy();
+				this.sfx.gamePlayMusic.stop();
+				this.sfx.enemyAlert.stop();
 			}
 		});
+
+		this.physics.add.overlap(this.playerAmunition, this.enemyAmunition, (playerAmunition, babyShip) => {
+			if (babyShip) {
+				if (babyShip !== undefined) {
+					babyShip.destroy(true);
+					this.sfx.explosions[0].play();
+					playerAmunition.destroy();
+				}
+			}
+		});
+
+
 	}
 
 	update() {
