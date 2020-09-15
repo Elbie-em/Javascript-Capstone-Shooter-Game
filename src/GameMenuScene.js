@@ -95,8 +95,8 @@ class GameMenuScene extends Phaser.Scene {
 			align: 'center'
 		});
 
-		this.gameCredits = this.add.text(this.game.config.width * 0.39, 500, "Created By: Elbie Moonga", {
-			fontFamily: 'Arial',
+		this.gameCredits = this.add.text(this.game.config.width * 0.35, 500, "A Game Created By: Elbie Moonga\n©2020", {
+			fontFamily: 'cursive',
 			fontSize: 20,
 			color: '#ffffff',
 			align: 'center'
