@@ -9,6 +9,7 @@ class GameScene extends Phaser.Scene {
 		this.load.image("asteriod", "../assets/asteriod.png");
 		this.load.image("playerAmunition", "../assets/playerAmunition.png");
 		this.load.image("background3", "../assets/bg.png");
+		this.load.image("background1", "../assets/bg1.jpeg");
 		this.load.spritesheet("galaxy", "../assets/galaxy.png", {
 			frameWidth: 10,
 			frameHeight: 10
@@ -38,7 +39,7 @@ class GameScene extends Phaser.Scene {
 
 	create() {
 
-		this.add.image(540, 300, 'background3');
+		this.add.image(540, 300, 'background1');
 		this.anims.create({
 			key: "galaxy",
 			frames: this.anims.generateFrameNumbers("galaxy"),
