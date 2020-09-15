@@ -5,6 +5,8 @@ class GameMenuScene extends Phaser.Scene {
 
 	preload() {
 		this.load.image("background3", "../assets/bg.png");
+		this.load.image("alien", "../assets/Alien.png");
+		this.load.image("astronaut", "../assets/astronaut.png");
 		this.load.image("btnStart", "../assets/btnStart.png");
 		this.load.image("btnStartHover", "../assets/btnStartHover.png");
 		this.load.image("btnHelp", "../assets/btnHelp.png");
@@ -15,6 +17,8 @@ class GameMenuScene extends Phaser.Scene {
 
 	create() {
 		this.add.image(540, 300, 'background3');
+		this.add.image(150, 300, 'astronaut');
+		this.add.image(900, 300, 'alien');
 		this.btnStart = this.add.sprite(
 			this.game.config.width * 0.5,
 			this.game.config.height * 0.4,
