@@ -13,6 +13,7 @@ const config = {
 	scene: [
 		GameMenuScene,
 		GameScene,
+		GameOverScene
 	],
 	pixelArt: true,
 	roundPixels: true
