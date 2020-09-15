@@ -105,7 +105,7 @@ class GameScene extends Phaser.Scene {
 			callback: () => {
 				let galaxy = new Galaxy(
 					this,
-					this.game.config.width + 50,
+					this.game.config.width,
 					Phaser.Math.Between(0,600)
 				);
 				this.galaxy.add(galaxy);
@@ -270,6 +270,20 @@ class GameScene extends Phaser.Scene {
 				surge.y > this.game.config.height + surge.displayHeight) {
 				if (surge) {
 					surge.destroy();
+				}
+			}
+		}
+
+		for (let i = 0; i < this.galaxy.getChildren().length; i++) {
+			let star = this.galaxy.getChildren()[i];
+			star.update();
+
+			if (star.x < -star.displayWidth ||
+				star.x > this.game.config.width + star.displayWidth ||
+				star.y < -star.displayHeight * 4 ||
+				star.y > this.game.config.height + star.displayHeight) {
+				if (star) {
+					star.destroy();
 				}
 			}
 		}
