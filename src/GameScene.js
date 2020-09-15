@@ -5,9 +5,14 @@ class GameScene extends Phaser.Scene {
 
 	preload() {
 		this.load.image("babyShip", "../assets/babyShip.png");
+		this.load.image("galaxy", "../assets/star.png");
 		this.load.image("asteriod", "../assets/asteriod.png");
 		this.load.image("playerAmunition", "../assets/playerAmunition.png");
 		this.load.image("background3", "../assets/bg.png");
+		this.load.spritesheet("galaxy", "../assets/galaxy.png", {
+			frameWidth: 10,
+			frameHeight: 10
+		});
 		this.load.spritesheet("spaceShipPlayer", "../assets/playerSprite.png", {
 			frameWidth: 132,
 			frameHeight: 22
@@ -34,7 +39,12 @@ class GameScene extends Phaser.Scene {
 	create() {
 
 		this.add.image(540, 300, 'background3');
-	
+		this.anims.create({
+			key: "galaxy",
+			frames: this.anims.generateFrameNumbers("galaxy"),
+			frameRate: 5,
+			repeat: -1
+		});
 
 		this.anims.create({
 			key: "motherShip",
@@ -85,9 +95,24 @@ class GameScene extends Phaser.Scene {
 			"spaceShipPlayer"
 		);
 
+		this.galaxy = this.add.group();
 		this.enemies = this.add.group();
 		this.enemyAmunition = this.add.group();
 		this.playerAmunition = this.add.group();
+
+		this.time.addEvent({
+			delay: 100,
+			callback: () => {
+				let galaxy = new Galaxy(
+					this,
+					this.game.config.width + 50,
+					Phaser.Math.Between(0,600)
+				);
+				this.galaxy.add(galaxy);
+			},
+			callbackScope: this,
+			loop: true
+		});
 
 		this.time.addEvent({
 			delay: 2000,
