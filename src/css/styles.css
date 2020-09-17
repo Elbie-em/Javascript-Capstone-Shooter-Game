@@ -5,3 +5,12 @@
     opacity: 0.9;
     border-radius: 10px;
 }
+
+.user-name-form {
+    position: absolute;
+    left: 35%;
+    top: 35%;
+    width: 300px;
+    height: 180px;
+    border-radius: 10px;
+}
