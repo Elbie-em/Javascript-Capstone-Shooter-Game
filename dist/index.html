@@ -23,12 +23,22 @@
 <body>
 
 </body>
-<form id="scoreForm" class="user-score-form w-50 bg-light p-3" hidden>
-    <h2 id="scoreCount" class="text-center text-dark">Your Score: 0</h2>
-    <div class="form-group">
-      <label for="exampleInputEmail1" class="text-dark"><h4>Username</h4></label>
-      <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Username here">
+<div id='user-form' class='user-name-form bg-info p-3'>
+    <div class='form-group text-center'>
+        <label class='text-white text-left' for="name">Please enter your username before you proceed</label>
+        <input type="text" class="form-control" id="username" placeholder="Username here">
+        <button id='btnProceed' type="button" class="btn btn-success mt-2">Proceed</button>
     </div>
-    <button type="submit" class="btn btn-success">Submit Score</button>
-  </form>
+</div>
+<div id="scoreForm" class="user-score-form w-50 bg-light p-3" hidden>
+    <h2 class="text-center text-dark">Your Score: <span id="scoreCount">0</span></h2>
+    <div class="form-group">
+        <label class="text-dark">
+            <h4>Username</h4>
+        </label>
+        <textarea class="form-control" name="username" id="user" cols="30" rows="1"></textarea>
+    </div>
+    <button id='btnSubmit' type="button" class="btn btn-success">Submit Score</button>
+</div>
+
 </html>
