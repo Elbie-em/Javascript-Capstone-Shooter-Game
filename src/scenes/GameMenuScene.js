@@ -1,10 +1,13 @@
 import Phaser from '../phaser';
+import * as Doman from '../config/doman'
 class GameMenuScene extends Phaser.Scene {
 	constructor() {
 		super({ key: "GameMenuScene" });
 	}
 
 	preload() {
+
+		
 		this.load.image("background3", "../assets/bg.png");
 		this.load.image("alien", "../assets/Alien.png");
 		this.load.image("astronaut", "../assets/astronaut.png");
@@ -26,7 +29,7 @@ class GameMenuScene extends Phaser.Scene {
 			menuMusic: this.sound.add('menuMusic')
 		};
 
-		this.sfx.menuMusic.play();
+		//this.sfx.menuMusic.play();
 		this.sfx.menuMusic.loop = true;
 		this.btnStart = this.add.sprite(
 			this.game.config.width * 0.5,
@@ -115,6 +118,20 @@ class GameMenuScene extends Phaser.Scene {
 			color: '#ffffff',
 			align: 'center'
 		});
+		this.saveUser();
+	}
+
+    saveUser () {
+		const userName = Doman.element('username');
+		const save = Doman.element('btnProceed');
+		save.onclick = () => {
+			if(userName.value !== '') {
+				localStorage.setItem('user',userName.value);
+				Doman.dismissComponent('user-form');
+			}else{
+				alert('fill in username');
+			}
+		}
 	}
 }
 
