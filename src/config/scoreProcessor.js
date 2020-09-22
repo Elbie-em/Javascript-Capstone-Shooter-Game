@@ -1,18 +1,13 @@
 import * as API from './apiData'
+import axios from 'axios'
 
-const postScore = (user, score) => {
-	fetch(`https://example.com/profilehttps://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${API.fetchApiKey}scores/`, {
-		mode: 'cors',
-		method: 'POST', 
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify({ user, score }),
-	})
-		.then(response => response.json())
-		.catch((error) => {
-			console.log('Error:', error);
-		});
+const postScore = (userName, userScore) => {
+	axios.post(`https://example.com/profilehttps://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${API.fetchApiKey}scores/`, {
+		user: userName,
+		score: userScore
+	}).catch((err) => {
+		console.log(err)
+	});
 }
 
 export { postScore }

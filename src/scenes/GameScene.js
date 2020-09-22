@@ -340,7 +340,7 @@ class GameScene extends Phaser.Scene {
 			if(userName !== '') {
 				ScoreProcessor.postScore(userName,score);
 				Doman.dismissComponent('scoreForm');
-				this.scene.scene.start("GameOverScene");
+				this.scene.start("GameOverScene");
 			}else{
 				alert('Error posting score');
 			}
