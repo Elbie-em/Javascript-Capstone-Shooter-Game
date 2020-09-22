@@ -4,6 +4,8 @@ import MotherShip from '../entitites/motherShip';
 import Asteroid from '../entitites/asteroid';
 import Galaxy from '../entitites/galaxy';
 import UFO from '../entitites/ufo';
+import * as ScoreProcessor from '../config/scoreProcessor';
+import * as Doman from '../config/doman'
 
 class GameScene extends Phaser.Scene {
 	constructor() {
@@ -98,6 +100,14 @@ class GameScene extends Phaser.Scene {
 		this.sfx.enemyAlert.play();
 		this.sfx.enemyAlert.loop = true;
 
+		this.score = 0;
+		this.scoreText = this.add.text(20, 10, "Score: 0", {
+			fontFamily: 'impact',
+			fontSize: 32,
+			fontStyle: 'bold',
+			color: '#ffffff',
+		});
+
 		this.player = new Player(
 			this,
 			Phaser.Math.Between(50, 200),
@@ -116,7 +126,7 @@ class GameScene extends Phaser.Scene {
 				let galaxy = new Galaxy(
 					this,
 					this.game.config.width,
-					Phaser.Math.Between(0,600)
+					Phaser.Math.Between(0, 600)
 				);
 				this.galaxy.add(galaxy);
 			},
@@ -167,7 +177,8 @@ class GameScene extends Phaser.Scene {
 				if (enemy.onDestroy !== undefined) {
 					enemy.onDestroy();
 				}
-
+				this.score += 2;
+				this.scoreText.setText('Score: ' + this.score);
 				enemy.explode(true);
 				playerAmunition.destroy();
 			}
@@ -181,6 +192,9 @@ class GameScene extends Phaser.Scene {
 				enemy.explode(true);
 				this.sfx.gamePlayMusic.stop();
 				this.sfx.enemyAlert.stop();
+				const scoreCount = document.getElementById('scoreCount');
+				scoreCount.innerHTML = `${this.score}`;
+				this.processScore();
 			}
 		});
 
@@ -192,6 +206,9 @@ class GameScene extends Phaser.Scene {
 				babyShip.destroy();
 				this.sfx.gamePlayMusic.stop();
 				this.sfx.enemyAlert.stop();
+				const scoreCount = document.getElementById('scoreCount');
+				scoreCount.innerHTML = `${this.score}`;
+				this.processScore();
 			}
 		});
 
@@ -201,6 +218,8 @@ class GameScene extends Phaser.Scene {
 					babyShip.destroy(true);
 					this.sfx.explosions[0].play();
 					playerAmunition.destroy();
+					this.score += 1;
+					this.scoreText.setText('Score: ' + this.score);
 				}
 			}
 		});
@@ -297,7 +316,7 @@ class GameScene extends Phaser.Scene {
 				}
 			}
 		}
-
+		
 	}
 
 	getEnemiesByType(type) {
@@ -309,6 +328,24 @@ class GameScene extends Phaser.Scene {
 			}
 		}
 		return arr;
+	}
+
+	processScore() {
+		const score = parseInt(document.getElementById('scoreCount').innerText);
+		const userName = document.getElementById('scoreUser').innerText = localStorage.getItem('user');
+		const sumbitScoreBtn = document.getElementById('btnSubmit');
+
+		sumbitScoreBtn.onclick = () => {
+			
+			if(userName !== '') {
+				ScoreProcessor.postScore(userName,score);
+				Doman.dismissComponent('scoreForm');
+				this.scene.scene.start("GameOverScene");
+			}else{
+				alert('Error posting score');
+			}
+		}
+
 	}
 }
 
