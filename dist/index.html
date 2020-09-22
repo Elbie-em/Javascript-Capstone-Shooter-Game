@@ -23,21 +23,16 @@
 <body>
 
 </body>
-<div id='user-form' class='user-name-form bg-info p-3'>
+<div id='user-form' class='user-name-form bg-info p-3' hidden>
     <div class='form-group text-center'>
         <label class='text-white text-left' for="name">Please enter your username before you proceed</label>
         <input type="text" class="form-control" id="username" placeholder="Username here">
         <button id='btnProceed' type="button" class="btn btn-success mt-2">Proceed</button>
     </div>
 </div>
-<div id="scoreForm" class="user-score-form w-50 bg-light p-3" hidden>
+<div id="scoreForm" class="user-score-form w-50 bg-light p-3 text-center" hidden>
+    <h2 class="text-center text-dark">Username: <span id="scoreUser"></span></h2>
     <h2 class="text-center text-dark">Your Score: <span id="scoreCount">0</span></h2>
-    <div class="form-group">
-        <label class="text-dark">
-            <h4>Username</h4>
-        </label>
-        <textarea class="form-control" name="username" id="user" cols="30" rows="1"></textarea>
-    </div>
     <button id='btnSubmit' type="button" class="btn btn-success">Submit Score</button>
 </div>
 
