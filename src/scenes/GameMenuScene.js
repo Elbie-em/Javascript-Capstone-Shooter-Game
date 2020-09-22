@@ -29,7 +29,7 @@ class GameMenuScene extends Phaser.Scene {
 			menuMusic: this.sound.add('menuMusic')
 		};
 
-		//this.sfx.menuMusic.play();
+		this.sfx.menuMusic.play();
 		this.sfx.menuMusic.loop = true;
 		this.btnStart = this.add.sprite(
 			this.game.config.width * 0.5,

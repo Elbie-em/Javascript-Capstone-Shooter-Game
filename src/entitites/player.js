@@ -37,7 +37,7 @@ class Player extends Entity {
 			if (this.getData("fireTick") < this.getData("fireDelay")) {
 				this.setData("fireTick", this.getData("fireTick") + 1);
 			}
-			else { // when the "manual timer" is triggered:
+			else { 
 				let surge = new PlayerAmunition(this.scene, this.x + 50, this.y);
 				this.scene.playerAmunition.add(surge);
 
@@ -51,7 +51,10 @@ class Player extends Entity {
 		this.scene.time.addEvent({
 			delay: 1000,
 			callback: () => {
-				this.scene.scene.start("GameOverScene");
+				//this.scene.scene.start("GameScene");
+				const scoreForm = document.getElementById('scoreForm');
+				
+				scoreForm.hidden = false;
 			},
 			callbackScope: this,
 			loop: false

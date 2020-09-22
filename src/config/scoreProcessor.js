@@ -2,6 +2,7 @@ import * as API from './apiData'
 
 const postScore = (user, score) => {
 	fetch(`https://example.com/profilehttps://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${API.fetchApiKey}scores/`, {
+		mode: 'cors',
 		method: 'POST', 
 		headers: {
 			'Content-Type': 'application/json',
