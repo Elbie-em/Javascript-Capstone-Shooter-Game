@@ -11,7 +11,7 @@ class GameLeaderBoardScene extends Phaser.Scene {
 
   create() {
     this.add.image(540, 300, 'background3');
-    this.title = this.add.text(this.game.config.width * 0.38, 128, "LEADER BOARD", {
+    this.title = this.add.text(this.game.config.width * 0.35, 90, "LEADER BOARD", {
 			fontFamily: 'impact',
 			fontSize: 60,
 			fontStyle: 'bold',
@@ -20,3 +20,5 @@ class GameLeaderBoardScene extends Phaser.Scene {
 		});
   }
 }
+
+export default GameLeaderBoardScene
