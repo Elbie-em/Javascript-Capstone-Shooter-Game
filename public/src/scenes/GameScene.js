@@ -5,7 +5,7 @@ import Asteroid from '../entitites/asteroid';
 import Galaxy from '../entitites/galaxy';
 import UFO from '../entitites/ufo';
 import * as ScoreProcessor from '../config/scoreProcessor';
-import * as Doman from '../config/doman'
+import * as Doman from '../config/doman';
 
 class GameScene extends Phaser.Scene {
 	constructor() {
