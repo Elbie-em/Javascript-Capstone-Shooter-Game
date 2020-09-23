@@ -66,8 +66,14 @@ class GameMenuScene extends Phaser.Scene {
 
 		this.btnStart.on("pointerup", () => {
 			this.btnStart.setTexture("btnStart");
-			this.sfx.menuMusic.stop();
-			this.scene.start("GameScene");
+			if (localStorage.getItem('user').length > 0){
+				this.sfx.menuMusic.stop();
+				this.scene.start("GameScene");
+				Doman.dismissComponent('user-form');
+			}else{
+				alert('fill in username');
+			}
+			
 		}, this);
 
 		this.btnHelp.on("pointerover", () => {
@@ -84,7 +90,13 @@ class GameMenuScene extends Phaser.Scene {
 
 		this.btnHelp.on("pointerup", () => {
 			this.btnHelp.setTexture("btnHelp");
-			//this.scene.start("GameHelpScene");
+			if (localStorage.getItem('user').length > 0){
+				this.scene.start("GameHelpScene");
+				Doman.dismissComponent('user-form');
+			}else{
+				alert('fill in username');
+			}
+			
 		}, this);
 
 		this.btnLeaderBoard.on("pointerover", () => {
@@ -101,10 +113,16 @@ class GameMenuScene extends Phaser.Scene {
 
 		this.btnLeaderBoard.on("pointerup", () => {
 			this.btnLeaderBoard.setTexture("btnLeaderBoard");
-			//this.scene.start("GameLeaderBoardScene");
+			if (localStorage.getItem('user').length > 0){
+				this.scene.start("GameLeaderBoardScene");
+				Doman.dismissComponent('user-form');
+			}else{
+				alert('fill in username')
+			}
+			
 		}, this);
 
-		this.gameTitile = this.add.text(this.game.config.width * 0.25, 128, "Eazer Rackhams Revenge", {
+		this.gameTitile = this.add.text(this.game.config.width * 0.25, 155, "Eazer Rackhams Revenge", {
 			fontFamily: 'impact',
 			fontSize: 54,
 			fontStyle: 'bold',
