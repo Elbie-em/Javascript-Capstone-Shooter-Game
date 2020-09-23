@@ -10,12 +10,9 @@ const postScore = (userName, userScore) => {
 	});
 }
 
-const getScores = () => {
-	axios.get(`https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${API.fetchApiKey()}/scores/`, {mode: 'cors'})
-	.then((result)=>{
-		console.log(result);
-	}).catch((err)=>{
-		console.log(err);
-	})
+const getScores = async () => {
+	const response = await axios.get(`https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${API.fetchApiKey()}/scores/`, {mode: 'cors'});
+	const scores = await response.data.result
+	return scores;
 }
 export { postScore, getScores}
