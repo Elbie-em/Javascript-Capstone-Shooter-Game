@@ -8,9 +8,9 @@
 
 .user-name-form {
     position: absolute;
-    left: 35%;
-    top: 35%;
+    top: 10px;
+    left: 38%;
     width: 300px;
-    height: 180px;
+    height: 150px;
     border-radius: 10px;
 }
