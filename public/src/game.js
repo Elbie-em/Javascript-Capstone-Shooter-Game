@@ -18,7 +18,7 @@ const config = {
         createContainer: true
     },
 	scene: [
-		//GameMenuScene,
+		GameMenuScene,
 		GameScene,
 		GameOverScene
 	],

@@ -95,7 +95,7 @@ class GameScene extends Phaser.Scene {
 			gamePlayMusic: this.sound.add('gameMusic')
 		};
 
-		this.sfx.gamePlayMusic.play();
+		//this.sfx.gamePlayMusic.play();
 		this.sfx.gamePlayMusic.loop = true;
 		this.sfx.enemyAlert.play();
 		this.sfx.enemyAlert.loop = true;
