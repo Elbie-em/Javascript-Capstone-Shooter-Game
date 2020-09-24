@@ -6,8 +6,6 @@ class GameMenuScene extends Phaser.Scene {
 	}
 
 	preload() {
-
-		
 		this.load.image("background3", "../assets/bg.png");
 		this.load.image("alien", "../assets/Alien.png");
 		this.load.image("astronaut", "../assets/astronaut.png");
