@@ -89,6 +89,7 @@ class GameMenuScene extends Phaser.Scene {
 		this.btnHelp.on("pointerup", () => {
 			this.btnHelp.setTexture("btnHelp");
 			if (localStorage.getItem('user').length > 0){
+				this.sfx.menuMusic.stop();
 				this.scene.start("GameHelpScene");
 				Doman.dismissComponent('user-form');
 			}else{
@@ -112,6 +113,7 @@ class GameMenuScene extends Phaser.Scene {
 		this.btnLeaderBoard.on("pointerup", () => {
 			this.btnLeaderBoard.setTexture("btnLeaderBoard");
 			if (localStorage.getItem('user').length > 0){
+				this.sfx.menuMusic.stop();
 				this.scene.start("GameLeaderBoardScene");
 				Doman.dismissComponent('user-form');
 			}else{
