@@ -19,11 +19,25 @@ class GameHelpScene extends Phaser.Scene {
 			fontStyle: 'bold',
 			color: '#ffffff',
 			align: 'center'
-    });
+		});
+
+		this.instructions = this.add.text(this.game.config.width * 0.18, 130, this.instructionsText(), {
+			fontFamily: 'monospace',
+			fontSize: 18,
+			color: '#ffffff',
+			align: 'center'
+		});
+
+		this.gameControls = this.add.text(this.game.config.width * 0.35, 200, this.controlsText(), {
+			fontFamily: 'monospace',
+			fontSize: 18,
+			color: '#ffffff',
+			align: 'center'
+		});
 
     this.btnExit = this.add.sprite(
-			this.game.config.width * 0.5,
-			this.game.config.height * 0.9,
+			this.game.config.width * 0.53,
+			this.game.config.height * 0.7,
 			"btnExit"
     );
     
@@ -46,7 +60,17 @@ class GameHelpScene extends Phaser.Scene {
 		}, this);
     
     
-  }
+	}
+	
+	instructionsText() {
+		const text = "Fly through space and destroy your enemies before they destroy you.\nShoot the mother ships and their baby ships before you collide\nAvoid and shoot the asteroids and UFO's before they get to you";
+		return text
+	}
+
+	controlsText() {
+		const text = "CONTROLS\n1. Shooting - Spacebar\n2. Moving up - Up Arrow key\n3. Moving down - Down Arrow key\n4. Moving forward - Right Arrow key\n5. Moving back - Left Arrow key"
+		return text;
+	}
 }
 
 export default GameHelpScene
