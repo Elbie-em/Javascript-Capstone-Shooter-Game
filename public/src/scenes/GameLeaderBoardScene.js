@@ -21,6 +21,7 @@ class GameLeaderBoardScene extends Phaser.Scene {
       color: '#ffffff',
       align: 'center'
     });
+   
     this.btnExit = this.add.sprite(
       this.game.config.width * 0.5,
       this.game.config.height * 0.9,
@@ -52,8 +53,13 @@ class GameLeaderBoardScene extends Phaser.Scene {
       scores.sort((a, b) => {
         return b.score - a.score;
       });
-      for (let i = 0; i < scores.length; i++) {
-        console.log(`${i+1}: ${scores[i].user}  ${scores[i].score}`);
+      for (let i = 0; i < 10; i += 1) {
+        this.title = this.add.text(this.game.config.width * 0.40, 100 +(i * 40), `${i+1}:   ${scores[i].user}   ${scores[i].score} points`, {
+          fontFamily: 'impact',
+          fontSize: 25,
+          color: '#ffffff',
+          align: 'center'
+        });
       }
     }
 
