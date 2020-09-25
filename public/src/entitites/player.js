@@ -51,9 +51,7 @@ class Player extends Entity {
     this.scene.time.addEvent({
       delay: 1000,
       callback: () => {
-        const scoreForm = Doman.element('element');
-
-        scoreForm.hidden = false;
+        Doman.showComponent('scoreForm');
       },
       callbackScope: this,
       loop: false,
