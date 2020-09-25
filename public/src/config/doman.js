@@ -8,4 +8,9 @@ const dismissComponent = (id) => {
   el.hidden = true;
 };
 
-export { element, dismissComponent };
+const showComponent = (id) => {
+  const el = document.getElementById(id);
+  el.hidden = false;
+}
+
+export { element, dismissComponent, showComponent };
