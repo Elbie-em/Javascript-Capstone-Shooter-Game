@@ -309,6 +309,7 @@ class GameScene extends Phaser.Scene {
   processScore() {
     const scoreText = Doman.element('scoreCount').innerText;
     const score = parseInt(scoreText, 10);
+    // eslint-disable-next-line prefer-const
     let userName = Doman.element('scoreUser');
     userName.innerText = localStorage.getItem('user');
     const sumbitScoreBtn = Doman.element('btnSubmit');
