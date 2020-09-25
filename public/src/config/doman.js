@@ -11,6 +11,6 @@ const dismissComponent = (id) => {
 const showComponent = (id) => {
   const el = document.getElementById(id);
   el.hidden = false;
-}
+};
 
 export { element, dismissComponent, showComponent };
