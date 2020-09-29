@@ -4,11 +4,30 @@
   "description": "A shooter game built with PhaserIII",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "build": "webpack",
+    "watch": "webpack --watch",
+    "start": "webpack-dev-server"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Elbie-em/Javascript-Capstone-Shooter-Game.git"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.jsx?$": "babel-jest"
+    },
+    "setupFiles": [
+      "jest-canvas-mock"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleNameMapper": {
+      "\\.(css|less|sass|scss)$": "<rootDir>/test/mocks/styleMock.js",
+      "\\.(gif|ttf|eot|svg|png)$": "<rootDir>/test/mocks/fileMock.js"
+    }
   },
   "author": "Elbie Moonga",
   "license": "ISC",
@@ -17,12 +36,33 @@
   },
   "homepage": "https://github.com/Elbie-em/Javascript-Capstone-Shooter-Game#readme",
   "devDependencies": {
+    "copy-webpack-plugin": "^6.1.1",
+    "css-loader": "^4.3.0",
     "eslint": "^6.8.0",
     "eslint-config-airbnb-base": "^14.1.0",
     "eslint-plugin-import": "^2.20.2",
+    "jest": "^26.4.2",
+    "jest-canvas-mock": "^2.3.0",
+    "style-loader": "^1.2.1",
     "stylelint": "^13.3.3",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-csstree-validator": "^1.8.0",
-    "stylelint-scss": "^3.17.2"
+    "stylelint-scss": "^3.17.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/polyfill": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/runtime": "^7.11.2",
+    "axios": "^0.20.0",
+    "babel-jest": "^26.3.0",
+    "babel-loader": "^8.1.0",
+    "firebase-tools": "^8.11.0",
+    "phaser": "^3.24.1",
+    "regenerator-runtime": "^0.13.7"
   }
 }
