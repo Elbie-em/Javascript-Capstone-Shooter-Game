@@ -10,4 +10,12 @@ describe('API Key Verification', () => {
   });
 });
 
+describe('API Url verification', () => {
+  test('Verify valid API url', () => {
+    expect(API.fetchApiUrl()).toBe('https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/');
+  });
 
+  test('Verify invalid API url', () => {
+    expect(API.fetchApiUrl()).not.toBe('https://us-central1-js-capstone-backend.cloudfunctions.net/api/game');
+  });
+});
