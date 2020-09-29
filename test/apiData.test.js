@@ -1,9 +1,13 @@
 import * as API from '../public/src/config/apiData';
 
-test('Verify API key', () => {
-  expect(API.fetchApiKey()).toBe('e5LqfA7O3UvhGQifFuij');
+describe('API Key Verification', () => {
+  test('Verify valid  api key', () => {
+    expect(API.fetchApiKey()).toBe('e5LqfA7O3UvhGQifFuij');
+  });
+
+  test('Verify invalid api key', () => {
+    expect(API.fetchApiKey()).not.toBe('e5LqfA7O3uxcQifFuij');
+  });
 });
 
-test('Verify API url', () => {
-  expect(API.fetchApiUrl()).toBe('https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/');
-});
+
