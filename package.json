@@ -62,6 +62,7 @@
     "babel-jest": "^26.3.0",
     "babel-loader": "^8.1.0",
     "firebase-tools": "^8.11.0",
-    "phaser": "^3.24.1"
+    "phaser": "^3.24.1",
+    "regenerator-runtime": "^0.13.7"
   }
 }

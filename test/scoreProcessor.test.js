@@ -16,7 +16,7 @@ global.fetch = jest.fn(() => Promise.resolve({
 describe('Testing the score API', () => {
   test('getting results from API', () => {
     expect.assertions(1);
-    
+
     return ScoreProcessor.getScores()
       .then(data => expect(data).toEqual(data));
   });

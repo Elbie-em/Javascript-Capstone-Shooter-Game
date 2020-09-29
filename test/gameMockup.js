@@ -10,28 +10,28 @@ const startPhaserGame = () => {
     type: Phaser.WEBGL,
     width: 1080,
     height: 600,
-    backgroundColor :'black',
+    backgroundColor: 'black',
     autoCenter: true,
     physics: {
-      default: "arcade",
+      default: 'arcade',
       arcade: {
-        gravity: { x: -20, y: 0 }
-      }
+        gravity: { x: -20, y: 0 },
+      },
     },
     dom: {
-          createContainer: true
-      },
+      createContainer: true,
+    },
     scene: [
       GameMenuScene,
       GameScene,
       GameLeaderBoardScene,
       GameHelpScene,
-      GameOverScene
+      GameOverScene,
     ],
     pixelArt: true,
-    roundPixels: true
+    roundPixels: true,
   };
-  
+
   const game = new Phaser.Game(gameMockConfig);
   return game;
 };
