@@ -128,15 +128,15 @@ Click the ```Start``` button to begin playing the game.
   * The last enemies are UFO's that are also destroyed with your surge amunition.
 - For each type of enemy, there are different points.
 
-## Others Future Features
+## Other Future Features
 
 > As this project open source, there are a number of features you can add, some include:
 
-- ADD LIVES
-- ADD DIFFERENT LEVELS
-- ADD SHIP SELECTION
-- ADD THE ALIEN BASE STATION TO DESTROY
-- ADD A STORE
+- Add Lives
+- Add levels
+- Add ship selection
+- Add the alien base station to destroy
+- Add a store
 
 
 ## Contributing
