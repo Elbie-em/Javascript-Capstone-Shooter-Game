@@ -1,5 +1,6 @@
 import axios from 'axios';
 import * as API from './apiData';
+import 'regenerator-runtime/runtime'
 
 const postScore = (userName, userScore) => {
   axios.post(`https://us-central1-js-capstone-backend.cloudfunctions.net/api/games/${API.fetchApiKey()}/scores/`, {
